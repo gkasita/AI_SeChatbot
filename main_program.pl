@@ -2,6 +2,7 @@
 :-consult('kb_syllabus.pl').
 
 :- dynamic(user_name/1).
+:- dynamic(year/2).
 
 chat :-
     response_start,
@@ -46,41 +47,26 @@ response_option('Admission') :-
 %-------Syllabus------------
 response_option('Syllabus') :-
     write('For our study-plan in KMITL, student can select to go through a track of Metaverse, Industial IoT, or Artificial Intelligence.'), nl, nl,
-    write('Here is the list of required course for studying in Kmitl:'), nl,
-    subject_by_track(require, Subjects),
-    print_subjects_list(Subjects),
-    write('What track are you interested in?'), nl,
-    repeat,
+    write('- Subject for each track'), nl,
+    write('- Subject in each semester'), nl,
     read_line_to_string(user_input, UserInput),
     downcase_atom(UserInput, LowerUserInput),
     (contains_option_track(LowerUserInput, Option)) -> response_track(Option);
-    handle_year_sem(LowerUserInput).
-    %in progress
+    handle_year_semester_query(LowerUserInput).
 
 %for handle track
+response_track('All track') :-
+    response_track('Metaverse'), nl,
+    response_track('Industrial IoT'), nl,
+    response_track('Artificial Intelligence'), !.
+
 response_track(Option) :-
     write('Here is the subject for '), write(Option), write(' track:'), nl,
     subject_by_track(Option, Subjects),
-    print_subjects_list(Subjects),
-    write('To ask about other topics apart from syllabus, type back'), nl.
+    print_subjects_list(Subjects).
 
 print_subjects_list([]).
 print_subjects_list([Subject|Rest]) :-
     write('- '), write(Subject),nl,
     print_subjects_list(Rest).
-
-%for handle year and sem
-%still in progress
-handle_year_sem(Input) :-
-    matches_pattern(Input, Year, Sem),
-    subjects_by_year_sem(Year, Sem, Subjects),
-    print_subjects_list(Subjects).
-
-matches_pattern(Input, Year, Sem) :-
-    re_match("year\\s(\\d+)\\ssem\\s(\\d+)", Input, Captures),
-    Captures = [YearString, SemString],
-    atom_number(YearString, Year),
-    atom_number(SemString, Sem).
-
-
 

@@ -66,13 +66,11 @@ track('Metaverse').
 track('Industrial IoT').
 track('Artificial Intelligence').
 
-
 subject_by_track(Option, Subjects) :-
     findall(Subject, subject(Subject, _, Option), Subjects).
 
 subjects_by_year_sem(Year, Sem, Subjects) :-
     findall(Subject, subject(Subject, year(Year, Sem), _), Subjects).
-
 %-----------------------------capture keyword for syllabus section-------------------------
 is_keyword_track(Keyword, Option) :-
     member(Keyword, ['metaverse', 'meta']),
@@ -85,6 +83,10 @@ is_keyword_track(Keyword, Option) :-
 is_keyword_track(Keyword, Option) :-
     member(Keyword, ['ai', 'artificial']),
     Option = 'Artificial Intelligence'.
+
+is_keyword_track(Keyword, Option) :-
+    member(Keyword, ['track', 'all']),
+    Option = 'All track'.
 
 contains_option_track(Keyword, Option) :-
     is_keyword_track(Keyword, Option),
