@@ -46,7 +46,7 @@ response_option('Admission') :-
 
 %-------Syllabus------------
 response_option('Syllabus') :-
-    write('For our study-plan in KMITL, student can select to go through a track of Metaverse, Industial IoT, or Artificial Intelligence.'), nl, nl,
+    write('For our study-plan in KMITL, student can select to go through a track of Metaverse, Industial IoT, or Artificial Intelligence.'), nl,
     write('- Subject for each track'), nl,
     write('- Subject in each semester'), nl,
     read_line_to_string(user_input, UserInput),
