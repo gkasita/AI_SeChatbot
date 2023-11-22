@@ -19,7 +19,7 @@ subject('Computer Architecture and ORgnaization', year(2, 1), require).
 subject('Data Structures and Algorithms', year(2, 1), require).
 subject('Web Programming', year(2, 1), require).
 subject('Digital Citizen', year(2, 1), require).
-subject('Language and COmmunication Course', year(2, 1), require).
+subject('Language and Communication Course', year(2, 1), require).
 
 subject('Linear Algebra', year(2, 2), require).
 subject('Computer Networks', year(2, 2), require).
@@ -66,17 +66,12 @@ track('Metaverse').
 track('Industrial IoT').
 track('Artificial Intelligence').
 
-metaverse_subject(X) :-
-    subject(X, _, 'Metaverse').
 
-industial_iot_subject(X) :-
-    subject(X, _, 'Industrial IoT').
+subject_by_track(Option, Subjects) :-
+    findall(Subject, subject(Subject, _, Option), Subjects).
 
-artificial_intelligence_subject(X) :-
-    subject(X, _, 'Artificial Intelligence').
-
-subject_by_sem(X, Year, Sem) :-
-    subject(X, year(Year, Sem), _).
+subjects_by_year_sem(Year, Sem, Subjects) :-
+    findall(Subject, subject(Subject, year(Year, Sem), _), Subjects).
 
 %-----------------------------capture keyword for syllabus section-------------------------
 is_keyword_track(Keyword, Option) :-
@@ -99,8 +94,6 @@ contains_option_track(Statement, Option) :-
     atom_contains(Statement, Keyword),
     is_keyword_track(Keyword, Option),
     !.
-
-contains_option_track(_, 'none').
 
 
 
