@@ -1,5 +1,5 @@
 :- consult('kb_main.pl').
-:-consult('kb_syllabus.pl').
+:- consult('kb_syllabus.pl').
 
 :- dynamic(user_name/1).
 :- dynamic(year/2).
@@ -51,8 +51,9 @@ response_option('Syllabus') :-
     write('- Subject in each semester'), nl,
     read_line_to_string(user_input, UserInput),
     downcase_atom(UserInput, LowerUserInput),
+    write(LowerUserInput),
     (contains_option_track(LowerUserInput, Option)) -> response_track(Option);
-    handle_year_semester_query(LowerUserInput).
+    (contains_option_yearsem(LowerUserInput, Option)) -> response_yearsem(Option).
 
 %for handle track
 response_track('All track') :-
@@ -70,3 +71,25 @@ print_subjects_list([Subject|Rest]) :-
     write('- '), write(Subject),nl,
     print_subjects_list(Rest).
 
+%for query based on sem
+response_yearsem(Option) :-
+    subjects_by_year_sem(Option, Subjects),
+    print_subjects_list(Subjects).
+
+response_yearsem('All yearsem') :-
+    write('Year 1 Semester 1'),nl,
+    response_yearsem(year(1, 1)), nl, nl,
+    write('Year 1 Semester 2'),nl,
+    response_yearsem(year(1, 2)), nl,nl,
+    write('Year 2 Semester 1'),nl,
+    response_yearsem(year(2, 1)), nl,nl,
+    write('Year 2 Semester 2'),nl,
+    response_yearsem(year(2, 2)), nl,nl,
+    write('Year 3 Semester 1'),nl,
+    response_yearsem(year(3, 1)), nl,nl,
+    write('Year 3 Semester 2'),nl,
+    response_yearsem(year(3, 2)), nl,nl,
+    write('Year 4 Semester 1'),nl,
+    response_yearsem(year(4, 1)), nl,nl,
+    write('Year 4 Semester 2'),nl,
+    response_yearsem(year(4, 2)), !.
