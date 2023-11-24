@@ -51,12 +51,12 @@ response_option('SE') :-
 
 response_for_se(Input) :-
     (contains_option_se(Input, Option)) -> response_se(Option);
-    (Input == 'back') -> write('Quit se section, How can I assists you today?');
+    (Input == 'back') -> write('Quit SE section, How can I assists you today?');
     write('I did not understand that. Can you please rephrase?'), nl.
 
 response_se(Option) :-
     response_by_q(Option, Response),
-    write(Response).
+    write(Response), nl.
 
 
 %-------Admission-----------
