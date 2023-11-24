@@ -115,56 +115,15 @@ generate_keyword(YearNum, SemNum, ReturnList) :-
         ReturnList).
 
 is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(1, 1, KwList),
+    between(1, 4, YearNum),
+    between(1, 2, SemNum),
+    generate_keyword(YearNum, SemNum, KwList),
     member(SubList, KwList),
     member(Keyword, SubList),
-    Option = year(1, 1).
+    Option = year(YearNum, SemNum).
+        
 
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(1, 2, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(1, 2).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(2, 1, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(2, 1).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(2, 2, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(2, 2).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(3, 1, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(3, 1).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(3, 2, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(3, 2).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(4, 1, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(4, 1).
-
-is_keyword_yearsem(Keyword, Option) :-
-    generate_keyword(4, 2, KwList),
-    member(SubList, KwList),
-    member(Keyword, SubList),
-    Option = year(4, 2).
-
-%generate list of keyword for each keyword year sem
 %use list to make input more dynamic
-
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['all']),
     Option = 'All yearsem'.
