@@ -121,9 +121,7 @@ is_keyword_yearsem(Keyword, Option) :-
     member(SubList, KwList),
     member(Keyword, SubList),
     Option = year(YearNum, SemNum).
-        
 
-%use list to make input more dynamic
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['all']),
     Option = 'All yearsem'.
