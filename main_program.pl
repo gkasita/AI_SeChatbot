@@ -4,6 +4,7 @@
 :- consult('kb_about.pl').
 
 :- dynamic(user_name/1).
+:- discontiguous response_option/1.
 
 chat :-
     response_start,
