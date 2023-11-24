@@ -1,5 +1,5 @@
 is_keyword_se(Keyword, Option) :-
-    member(Keyword, ['jobs', 'occupation', 'carreer']),
+    member(Keyword, ['jobs', 'occupation', 'career']),
     Option = 'Jobs'.
 
 is_keyword_se(Keyword, Option) :-

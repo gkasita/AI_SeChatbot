@@ -18,7 +18,7 @@ response(Statement) :-
     (    
      contains_option(Statement, Option) -> response_option(Option);
      (Statement == 'bye') -> write('Goodbye');
-     write('I did not understand that. Can you please rephrase?')
+     write('I did not understand that. Can you please rephrase?'), nl
     ).
 
 response_start :-
@@ -51,7 +51,7 @@ response_option('SE') :-
 
 response_for_se(Input) :-
     (contains_option_se(Input, Option)) -> response_se(Option);
-    (Input == 'back') -> write('Quit SE section, How can I assists you today?');
+    (Input == 'back') -> write('Quit SE section, How can I assists you today?'), nl;
     write('I did not understand that. Can you please rephrase?'), nl.
 
 response_se(Option) :-
@@ -71,9 +71,9 @@ response_option('Admission') :-
 
 process_input_admission(Input) :-
     (contain_test(Input)) -> display_min_score(Input);
-    (Input == 'back') -> write('Quit admission section, How can I assist you today?');
+    (Input == 'back') -> write('Quit admission section, How can I assist you today?'), nl;
     extract_test_from_input(Input, Test), contain_test(Test) -> display_min_score(Test);
-    write('We will get back to you regarding whether '), write(Input), write(' would be accepted or not.'), nl.
+    write('We will get back to you regarding whether this test would be accepted or not.'), nl.
 
 extract_test_from_input(Input, Test) :-
     sub_atom(Input, _, _, _, Test).
@@ -150,7 +150,7 @@ response_option('Syllabus') :-
 response_for_syllabus(Input) :-
     (contains_option_yearsem(Input, Option2)) -> response_yearsem(Option2);
     (contains_option_track(Input, Option)) -> response_track(Option);
-    (Input == 'back') -> write('Quit syllabus section, How can I assists you today?');
+    (Input == 'back') -> write('Quit syllabus section, How can I assists you today?'), nl;
     write('I did not understand that. Can you please rephrase?'), nl.
 
     
