@@ -48,11 +48,18 @@ response_option('Syllabus') :-
     write('For our study-plan in KMITL, student can select to go through a track of Metaverse, Industial IoT, or Artificial Intelligence.'), nl,
     write('- Subject for each track'), nl,
     write('- Subject in each semester'), nl,
+    write('[type back to exit syllabus section]'),nl,
+    repeat,
     read_line_to_string(user_input, UserInput),
     downcase_atom(UserInput, LowerUserInput), nl,
-    write('Receive: '), write(LowerUserInput),
-    (contains_option_track(LowerUserInput, Option)) -> response_track(Option);
-    (contains_option_yearsem(LowerUserInput, Option)) -> response_yearsem(Option).
+    write('Receive: '), write(LowerUserInput),nl,
+    response_for_syllabus(LowerUserInput),
+    (LowerUserInput == 'back'), !.
+
+response_for_syllabus(Input) :-
+    (contains_option_yearsem(Input, Option2)) -> response_yearsem(Option2);
+    (contains_option_track(Input, Option)) -> response_track(Option);
+    (Input == 'back') -> write('Quit syllabus section, How can I assists you today?').
 
 %for handle track
 response_track('All track') :-
@@ -71,10 +78,6 @@ print_subjects_list([Subject|Rest]) :-
     print_subjects_list(Rest).
 
 %for query based on sem
-response_yearsem(Option) :-
-    write(Option), nl,
-    subjects_by_year_sem(Option, Subjects),
-    print_subjects_list(Subjects).
 
 response_yearsem('All yearsem') :-
     write('Year 1 Semester 1'),nl,
@@ -93,3 +96,8 @@ response_yearsem('All yearsem') :-
     response_yearsem(year(4, 1)), nl,nl,
     write('Year 4 Semester 2'),nl,
     response_yearsem(year(4, 2)), !.
+
+response_yearsem(Option) :-
+    write('Option: '), write(Option), nl,
+    subjects_by_year_sem(Option, Subjects),
+    print_subjects_list(Subjects).
