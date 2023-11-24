@@ -1,4 +1,4 @@
-%knowledge base for categorized intent behind user input for main keyword
+%knowledge base for categorized intent behind user input for keyword
 
 is_keyword(Keyword, Option) :-
     member(Keyword, ['what is software engineer', 'faq', 'program']),
