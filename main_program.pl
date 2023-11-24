@@ -112,7 +112,6 @@ response_option('Syllabus') :-
     repeat,
     read_line_to_string(user_input, UserInput),
     downcase_atom(UserInput, LowerUserInput), nl,
-    write('Receive: '), write(LowerUserInput),nl,
     response_for_syllabus(LowerUserInput),
     (LowerUserInput == 'back'), !.
 
@@ -141,7 +140,6 @@ print_subjects_list([Subject|Rest]) :-
     print_subjects_list(Rest).
 
 %for query based on sem
-
 response_yearsem('All yearsem') :-
     write('Year 1 Semester 1'),nl,
     response_yearsem(year(1, 1)), nl, nl,
@@ -158,11 +156,9 @@ response_yearsem('All yearsem') :-
     write('Year 4 Semester 1'),nl,
     response_yearsem(year(4, 1)), nl,nl,
     write('Year 4 Semester 2'),nl,
-    response_yearsem(year(4, 2)),nl,nl,
-    write('This is only the require course for every track, Pls provide the track you interested in:'), nl.
+    response_yearsem(year(4, 2)),nl,nl, !.
 
 response_yearsem(Option) :-
-    write('Option: '), write(Option), nl,
-    write('This is the require course for requesting year and sem:'), nl,
+    write('Require course:'), nl,
     subjects_require_by_year_sem(Option, Subjects),
     print_subjects_list(Subjects).

@@ -132,4 +132,3 @@ contains_option_yearsem(Keyword, Option) :-
 contains_option_yearsem(Statement, Option) :-
     atom_contains(Statement, Keyword),
     is_keyword_yearsem(Keyword, Option).
-    
