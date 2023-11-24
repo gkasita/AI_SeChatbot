@@ -42,13 +42,14 @@ response_option('SE') :-
     read_line_to_string(user_input, UserInput), % Get user input
     downcase_atom(UserInput, LowerUserInput),
     handle_SE_query(LowerUserInput, Response),
-    write(Response),nl.
+    write(Response),nl,nl,
+    response_option('SE').
 
 response_option('Admission') :-
     write('Admission'), nl.
 
 response_option('Syllabus') :-
-    write('Syllabus'), nl.
+    write('Syllabus in main'), nl.
 
 handle_SE_query(Query, Response) :-
     is_SE_keyword(Query, Option), % Check if the query matches any keyword in se_kb
