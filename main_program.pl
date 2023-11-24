@@ -100,5 +100,6 @@ response_yearsem('All yearsem') :-
 
 response_yearsem(Option) :-
     write('Option: '), write(Option), nl,
+    write('This is the require course for requesting year and sem:'), nl,
     subjects_require_by_year_sem(Option, Subjects),
     print_subjects_list(Subjects).
