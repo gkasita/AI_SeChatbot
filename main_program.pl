@@ -1,5 +1,5 @@
 :- consult('kb_main.pl').
-
+:- consult('admission.pl').
 :- dynamic(user_name/1).
 
 chat :-
@@ -40,9 +40,12 @@ response_option('SE') :-
     write('SE'), nl.
 
 response_option('Admission') :-
-    write('Admission'), nl.
+    admission_rules('Bachelor'), 
+    nl.
 
 response_option('Syllabus') :-
     write('Syllabus'), nl.
+
+
 
 
