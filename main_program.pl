@@ -95,9 +95,10 @@ response_yearsem('All yearsem') :-
     write('Year 4 Semester 1'),nl,
     response_yearsem(year(4, 1)), nl,nl,
     write('Year 4 Semester 2'),nl,
-    response_yearsem(year(4, 2)), !.
+    response_yearsem(year(4, 2)),nl,nl,
+    write('This is only the require course for every track, Pls provide the track you interested in:'), nl.
 
 response_yearsem(Option) :-
     write('Option: '), write(Option), nl,
-    subjects_by_year_sem(Option, Subjects),
+    subjects_require_by_year_sem(Option, Subjects),
     print_subjects_list(Subjects).

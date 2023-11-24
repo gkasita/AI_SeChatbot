@@ -69,8 +69,8 @@ track('Artificial Intelligence').
 subject_by_track(Option, Subjects) :-
     findall(Subject, subject(Subject, _, Option), Subjects).
 
-subjects_by_year_sem(Option, Subjects) :-
-    findall(Subject, subject(Subject, Option, _), Subjects).
+subjects_require_by_year_sem(Option, Subjects) :-
+    findall(Subject, subject(Subject, Option, require), Subjects).
 %-----------------------------capture keyword for syllabus section-------------------------
 is_keyword_track(Keyword, Option) :-
     member(Keyword, ['metaverse', 'meta']),
