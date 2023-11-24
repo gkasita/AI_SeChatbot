@@ -100,35 +100,35 @@ contains_option_track(Statement, Option) :-
 % for based on year and sem
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year1sem1', 'y1s1', 'year 1 sem 1', 'y 1 s 1', 'year 1 semester 1']),
-    Option = year('1', '1').
+    Option = year(1, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year1sem2', 'y1s2', 'year 1 sem 2', 'y 1 s 2', 'year 1 semester 2']),
-    Option = year('1', '2').
+    Option = year(1, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year2sem1', 'y2s1', 'year 2 sem 1', 'y 2 s 1', 'year 2 semester 1']),
-    Option = year('2', '1').
+    Option = year(2, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year2sem2', 'y2s2', 'year 2 sem 2', 'y 2 s 2', 'year 2 semester 2']),
-    Option = year('2', '2').
+    Option = year(2, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year3sem1', 'y3s1', 'year 3 sem 1', 'y 3 s 1', 'year 3 semester 1']),
-    Option = year('3', '1').
+    Option = year(3, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year3sem2', 'y3s2', 'year 3 sem 2', 'y 3 s 2', 'year 3 semester 2']),
-    Option = year('3', '2').
+    Option = year(3, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year4sem1', 'y4s1', 'year 4 sem 1', 'y 4 s 1', 'year 4 semester 1']),
-    Option = year('4', '1').
+    Option = year(4, 1).
     
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['year4sem2', 'y4s2', 'year 4 sem 2', 'y 4 s 2', 'year 4 semester 2']),
-    Option = year('4', '2').
+    Option = year(4, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['all']),
@@ -142,5 +142,4 @@ contains_option_yearsem(Statement, Option) :-
     atom_contains(Statement, Keyword),
     is_keyword_yearsem(Keyword, Option),
     !.
-
 

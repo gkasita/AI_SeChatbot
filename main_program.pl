@@ -2,7 +2,6 @@
 :- consult('kb_syllabus.pl').
 
 :- dynamic(user_name/1).
-:- dynamic(year/2).
 
 chat :-
     response_start,
@@ -50,8 +49,8 @@ response_option('Syllabus') :-
     write('- Subject for each track'), nl,
     write('- Subject in each semester'), nl,
     read_line_to_string(user_input, UserInput),
-    downcase_atom(UserInput, LowerUserInput),
-    write(LowerUserInput),
+    downcase_atom(UserInput, LowerUserInput), nl,
+    write('Receive: '), write(LowerUserInput),
     (contains_option_track(LowerUserInput, Option)) -> response_track(Option);
     (contains_option_yearsem(LowerUserInput, Option)) -> response_yearsem(Option).
 
@@ -73,6 +72,7 @@ print_subjects_list([Subject|Rest]) :-
 
 %for query based on sem
 response_yearsem(Option) :-
+    write(Option), nl,
     subjects_by_year_sem(Option, Subjects),
     print_subjects_list(Subjects).
 
