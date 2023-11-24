@@ -89,54 +89,88 @@ is_keyword_track(Keyword, Option) :-
     Option = 'All track'.
 
 contains_option_track(Keyword, Option) :-
-    is_keyword_track(Keyword, Option),
-    !.
+    is_keyword_track(Keyword, Option).
     
 contains_option_track(Statement, Option) :-
     atom_contains(Statement, Keyword),
-    is_keyword_track(Keyword, Option),
-    !.
+    is_keyword_track(Keyword, Option).
 
 % for based on year and sem
+concat_Y_and_S_with_space(Y, YearNum, S, SemNum, Combined) :-
+    atomic_list_concat([Y, YearNum, S, SemNum], ' ', Combined).
+
+concat_Y_and_S(Y, YearNum, S, SemNum, Combined) :-
+    atomic_list_concat([Y, YearNum, S, SemNum], '', Combined).
+
+generate_keyword(YearNum, SemNum, ReturnList) :-
+    findall(Combined,
+        (   concat_Y_and_S_with_space('year', YearNum, 'sem', SemNum, Combined1),
+            concat_Y_and_S_with_space('y', YearNum, 's', SemNum, Combined2),
+            concat_Y_and_S_with_space('year', YearNum, 'semester', SemNum, Combined3),
+            concat_Y_and_S('year', YearNum, 'sem', SemNum, Combined4),
+            concat_Y_and_S('y', YearNum, 's', SemNum, Combined5),
+            concat_Y_and_S('year', YearNum, 'semester', SemNum, Combined6),
+            append([Combined1, Combined2, Combined3, Combined4, Combined5, Combined6], [], Combined)
+        ),
+        ReturnList).
+
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year1sem1', 'y1s1', 'year 1 sem 1', 'y 1 s 1', 'year 1 semester 1']),
+    generate_keyword(1, 1, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(1, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year1sem2', 'y1s2', 'year 1 sem 2', 'y 1 s 2', 'year 1 semester 2']),
+    generate_keyword(1, 2, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(1, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year2sem1', 'y2s1', 'year 2 sem 1', 'y 2 s 1', 'year 2 semester 1']),
+    generate_keyword(2, 1, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(2, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year2sem2', 'y2s2', 'year 2 sem 2', 'y 2 s 2', 'year 2 semester 2']),
+    generate_keyword(2, 2, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(2, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year3sem1', 'y3s1', 'year 3 sem 1', 'y 3 s 1', 'year 3 semester 1']),
+    generate_keyword(3, 1, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(3, 1).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year3sem2', 'y3s2', 'year 3 sem 2', 'y 3 s 2', 'year 3 semester 2']),
+    generate_keyword(3, 2, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(3, 2).
 
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year4sem1', 'y4s1', 'year 4 sem 1', 'y 4 s 1', 'year 4 semester 1']),
+    generate_keyword(4, 1, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(4, 1).
-    
+
 is_keyword_yearsem(Keyword, Option) :-
-    member(Keyword, ['year4sem2', 'y4s2', 'year 4 sem 2', 'y 4 s 2', 'year 4 semester 2']),
+    generate_keyword(4, 2, KwList),
+    member(SubList, KwList),
+    member(Keyword, SubList),
     Option = year(4, 2).
+
+%generate list of keyword for each keyword year sem
+%use list to make input more dynamic
 
 is_keyword_yearsem(Keyword, Option) :-
     member(Keyword, ['all']),
     Option = 'All yearsem'.
 
- contains_option_yearsem(Keyword, Option) :-
-    is_keyword_yearsem(Keyword, Option),
-    !.
+contains_option_yearsem(Keyword, Option) :-
+    is_keyword_yearsem(Keyword, Option).
     
 contains_option_yearsem(Statement, Option) :-
     atom_contains(Statement, Keyword),
