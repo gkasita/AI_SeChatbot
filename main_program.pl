@@ -1,6 +1,7 @@
 :- consult('kb_main.pl').
 :- consult('kb_syllabus.pl').
 :- consult('kb_admission.pl').
+:- consult('kb_about.pl').
 
 :- dynamic(user_name/1).
 
@@ -37,11 +38,28 @@ response_option('Greeting') :-
 
 response_option('Thank you') :-
     write('Your welcome, don\'t hesitate to ask me more if you have any questions.'), nl.
+%-----se-------
 
 response_option('SE') :-
-    write('SE'), nl.
+    write('What would you like to know?'), nl,
+    repeat,
+    read_line_to_string(user_input, UserInput),
+    downcase_atom(UserInput, LowerUserInput), nl,
+    response_for_se(LowerUserInput),
+    (LowerUserInput == 'back'), !.
+
+response_for_se(Input) :-
+    (contains_option_se(Input, Option)) -> response_se(Option);
+    (Input == 'back') -> write('Quit se section, How can I assists you today?');
+    write('I did not understand that. Can you please rephrase?'), nl.
+
+response_se(Option) :-
+    response_by_q(Option, Response),
+    write(Response).
+
 
 %-------Admission-----------
+
 response_option('Admission') :-
     admission_rules('Bachelor'), nl,
     repeat,
@@ -51,10 +69,23 @@ response_option('Admission') :-
     (LowercaseInput == 'back'), !.
 
 process_input_admission(Input) :-
-    write(Input),
-    (contain_test(Input)) -> write('Yes, that is a valid test.');
-    (Input == 'back') -> write('Quit admission section, How can I assists you today?');
-    write('I did not understand that. Can you please rephrase?'), nl.  
+    (contain_test(Input)) -> display_min_score(Input);
+    (Input == 'back') -> write('Quit admission section, How can I assist you today?');
+    extract_test_from_input(Input, Test), contain_test(Test) -> display_min_score(Test);
+    write('We will get back to you regarding whether '), write(Input), write(' would be accepted or not.'), nl.
+
+extract_test_from_input(Input, Test) :-
+    sub_atom(Input, _, _, _, Test).
+
+display_min_score(Test) :-
+    standardized_test(Test, Score, MathScore),
+    write('The standardized test you provided is valid to apply'), nl,
+    write('The minimum overall requirement for '), write(Test), write(' is '), write(Score), nl,
+    (
+        MathScore \= '' ->  % Check if MathScore is not an empty string
+        write('The minimum math requirement for '), write(Test), write(' is '), write(MathScore), nl
+        ; true  % Do nothing if MathScore is an empty string
+    ).
 
 admission_rules('Bachelor') :-
     admission_requirements('Basic'),
@@ -92,17 +123,17 @@ optional_items :-
     write('7. Portfolios Achievements (optional)'), nl.
     
 further_info :-
-    write('Standardized Tests and their minimum scores:'), nl,
+    write('\nThese are the standardized tests accepted: '), nl,
     standardized_tests(Tests),
-    display_test_scores(Tests),
-    write('If you have any further questions, please don\'t hesitate to ask!'), nl.
+    display_standardized_tests(Tests), nl,
+    write('If you have any further questions, we can provide details of minimum requirement for each test!'), nl.
 
-display_test_scores([]).
-display_test_scores([Test | Rest]) :-
-    standardized_test(Test, Score),
-    write('      * '), write(Test), write(': '), write(Score), nl,
-    display_test_scores(Rest).
-    
+display_standardized_tests([]).
+display_standardized_tests([Test]) :- 
+    write(' '), write(Test), nl.
+display_standardized_tests([Test | Rest]) :-
+    write(' '), write(Test), write(','),
+    display_standardized_tests(Rest).
 %-------Syllabus------------
 response_option('Syllabus') :-
     write('For our study-plan in KMITL, student can select to go through a track of Metaverse, Industial IoT, or Artificial Intelligence.'), nl,
